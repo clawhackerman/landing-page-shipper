@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
+import { Suspense } from 'react'
 import fs from 'fs'
 import path from 'path'
 import { LandingPageContent } from '../../types/content'
@@ -48,5 +49,9 @@ export default async function Page({ params }: PageProps) {
   const { slug } = await params
   const content = readContent(slug)
   if (!content) notFound()
-  return <LandingPage content={content} />
+  return (
+    <Suspense fallback={null}>
+      <LandingPage content={content} />
+    </Suspense>
+  )
 }

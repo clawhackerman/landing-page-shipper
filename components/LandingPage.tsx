@@ -1,6 +1,7 @@
 'use client'
 
 import { LandingPageContent } from '../types/content'
+import { useAdParams } from '../hooks/useAdParams'
 import Navbar from './layout/Navbar'
 import Footer from './layout/Footer'
 import Hero from './sections/Hero'
@@ -21,11 +22,19 @@ interface LandingPageProps {
 }
 
 export default function LandingPage({ content }: LandingPageProps) {
+  const adParams = useAdParams()
+
+  const heroOverrides = {
+    headline:    adParams.h   ?? undefined,
+    subheadline: adParams.sh  ?? undefined,
+    ctaLabel:    adParams.cta ?? undefined,
+  }
+
   return (
     <div className="bg-[var(--color-background)] text-[var(--color-text-primary)]">
       <Navbar content={content.navbar} />
       <main>
-        <Hero content={content.hero} />
+        <Hero content={content.hero} overrides={heroOverrides} />
         <MediaBlock content={content.mediaBlock} />
         <ProblemSection content={content.problemSection} />
         <ValueProposition content={content.valueProposition} />
