@@ -74,8 +74,8 @@ export async function POST(
       fetchRecordById<AirtableCopyFields>('Copy', copyRecordId),
       fetchByClientId<AirtableServiceFields>('Services', recordId),
       fetchByClientId<AirtableProcessStepFields>('Process Steps', recordId),
-      fetchByClientId<AirtableTestimonialFields>('Testimonials', recordId),
-      fetchByClientId<AirtableCaseStudyFields>('Case Studies', recordId),
+      fetchByClientId<AirtableTestimonialFields>('Testimonials', recordId, false),
+      fetchByClientId<AirtableCaseStudyFields>('Case Studies', recordId, false),
       fetchByClientId<AirtableFAQFields>('FAQs', recordId),
     ])
 

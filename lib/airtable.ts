@@ -125,9 +125,10 @@ export async function fetchRecordById<T>(table: string, id: string): Promise<Air
   return res.json()
 }
 
-export async function fetchByClientId<T>(table: string, clientId: string): Promise<AirtableRecord<T>[]> {
+export async function fetchByClientId<T>(table: string, clientId: string, sort = true): Promise<AirtableRecord<T>[]> {
   const formula = encodeURIComponent(`FIND("${clientId}", ARRAYJOIN({Client}, ",")) > 0`)
-  return fetchAll<T>(table, `filterByFormula=${formula}&sort[0][field]=OrderNumber&sort[0][direction]=asc`)
+  const sortParams = sort ? '&sort[0][field]=OrderNumber&sort[0][direction]=asc' : ''
+  return fetchAll<T>(table, `filterByFormula=${formula}${sortParams}`)
 }
 
 export async function patchRecord(table: string, id: string, fields: Record<string, unknown>) {
